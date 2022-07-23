@@ -14,7 +14,7 @@ public class JsonEncoder extends Encoder implements UpdateIDListener, ConnectLis
 {
     static ObjectMapper objectMapper = new ObjectMapper();
 
-    ArrayList<Integer> exclude = new ArrayList<Integer>();
+    ArrayList<Integer> exclude = new ArrayList<>();
 
     public void addExclude(int id)
     {
@@ -54,8 +54,7 @@ public class JsonEncoder extends Encoder implements UpdateIDListener, ConnectLis
         {
             try
             {
-                CommandMap commandMap = new CommandMap();
-                commandMap = objectMapper.readValue(message,CommandMap.class);
+                CommandMap commandMap = objectMapper.readValue(message,CommandMap.class);
 
                 if (!commandMap.authtoken.equals(RatPlugin.AUTHTOKEN))
                 {
@@ -63,10 +62,8 @@ public class JsonEncoder extends Encoder implements UpdateIDListener, ConnectLis
                     return "/disconnect";
                 }
 
-                String command = (commandMap.targetid == -1 ? "" : "/to " + commandMap.targetid + " ")
+                return (commandMap.targetid == -1 ? "" : "/to " + commandMap.targetid + " ")
                         + commandMap.command + " " + String.join(" ",commandMap.args);
-
-                return command;
             }
             catch (JsonProcessingException e)
             {

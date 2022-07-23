@@ -1,11 +1,8 @@
 package com.ratplugin.commands;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ratplugin.ClientUtils;
 import com.ratplugin.RatPlugin;
 import com.serverd.client.Client;
-import com.serverd.client.ClientManager;
 import com.serverd.plugin.Plugin;
 import com.serverd.plugin.command.Command;
 

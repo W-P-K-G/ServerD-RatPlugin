@@ -40,9 +40,7 @@ public class ClientUtils
 
         try
         {
-            String message = objectMapper.writeValueAsString(clientmap);
-
-            return message;
+            return objectMapper.writeValueAsString(clientmap);
         }
         catch (JsonProcessingException e)
         {
@@ -56,7 +54,7 @@ public class ClientUtils
        return instance.ratsID.lastIndexOf(client.id) != -1;
     }
 
-    public static void makeRat(Client client,RatPlugin instance)
+    public static void makeRat(Client client)
     {
         client.name = "RAT " + client.id;
         client.log.setName("RAT Thread " + client.id);

@@ -1,6 +1,5 @@
 package com.ratplugin;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ratplugin.commands.Admin;
 import com.ratplugin.commands.ListRats;
 import com.serverd.client.Client;
@@ -14,8 +13,6 @@ import java.util.ArrayList;
 
 public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListener
 {
-    static ObjectMapper objectMapper = new ObjectMapper();
-
     public ArrayList<Integer> adminsID,ratsID;
 
     public JsonEncoder jsonEncoder;
@@ -34,8 +31,8 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     @Override
     public String init(Plugin plugin)
     {
-        adminsID = new ArrayList<Integer>();
-        ratsID = new ArrayList<Integer>();
+        adminsID = new ArrayList<>();
+        ratsID = new ArrayList<>();
 
         jsonEncoder = new JsonEncoder();
 
@@ -78,7 +75,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         }
         else
         {
-            ClientUtils.makeRat(client,this);
+            ClientUtils.makeRat(client);
             ClientUtils.addToRatList(client,this);
         }
     }
