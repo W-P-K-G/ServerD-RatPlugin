@@ -1,6 +1,7 @@
 package com.ratplugin;
 
 import com.ratplugin.commands.Admin;
+import com.ratplugin.commands.Info;
 import com.ratplugin.commands.ListRats;
 import com.serverd.client.Client;
 import com.serverd.plugin.Debug;
@@ -34,16 +35,14 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         adminsID = new ArrayList<>();
         ratsID = new ArrayList<>();
 
-        jsonEncoder = new JsonEncoder();
+        jsonEncoder = new JsonEncoder(plugin);
 
         plugin.addConnectListener(this);
-        plugin.addConnectListener(jsonEncoder);
-
         plugin.addUpdateIDListener(this);
-        plugin.addUpdateIDListener(jsonEncoder);
 
         plugin.addCommand(new ListRats());
         plugin.addCommand(new Admin());
+        plugin.addCommand(new Info(plugin));
 
         return null;
     }

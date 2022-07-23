@@ -26,6 +26,12 @@ public class JsonEncoder extends Encoder implements UpdateIDListener, ConnectLis
         exclude.remove(exclude.lastIndexOf(id));
     }
 
+    public JsonEncoder(Plugin plugin)
+    {
+        plugin.addConnectListener(this);
+        //plugin.addUpdateIDListener(this);
+    }
+
     @Override
     public String encode(String message, Client client)
     {
