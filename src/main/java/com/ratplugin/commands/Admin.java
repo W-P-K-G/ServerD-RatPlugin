@@ -27,6 +27,8 @@ public class Admin extends Command
                 return;
             }
 
+            client.send("Switched to admin mode");
+
             ClientUtils.removeFromRatList(client,instance);
 
             client.name = "Admin " + client.id + " (From terminal)";
@@ -36,8 +38,6 @@ public class Admin extends Command
             if (args.length >= 2)
                 if (args[1].equals("with-json"))
                     client.setEncoder(instance.jsonEncoder);
-
-            client.send("Switched to admin mode");
         }
         else client.send("Missing argument");
 

