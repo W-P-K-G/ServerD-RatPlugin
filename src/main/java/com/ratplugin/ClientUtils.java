@@ -1,23 +1,26 @@
 package com.ratplugin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverd.client.Client;
 import com.serverd.client.ClientManager;
 
+import static com.ratplugin.utils.Tools.*;
+
 public class ClientUtils
 {
-    static ObjectMapper objectMapper = new ObjectMapper();
 
     public static class ClientObject
     {
         public String name;
         public int id;
 
-        public ClientObject(int id,String name)
+        public boolean joined;
+
+        public ClientObject(int id,String name,boolean joined)
         {
             this.id = id;
             this.name = name;
+            this.joined = joined;
         }
     }
 
@@ -35,7 +38,7 @@ public class ClientUtils
         {
             Client c = ClientManager.getClient(instance.ratsID.get(i));
 
-            clientmap.clients[i] = new ClientObject(c.id,c.name);
+            clientmap.clients[i] = new ClientObject(c.id,c.name,c.joinedid != -1);
         }
 
         try

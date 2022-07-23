@@ -1,7 +1,6 @@
 package com.ratplugin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverd.client.Client;
 import com.serverd.plugin.Encoder;
 import com.serverd.plugin.Plugin;
@@ -10,10 +9,11 @@ import com.serverd.plugin.listener.UpdateIDListener;
 
 import java.util.ArrayList;
 
+import static com.ratplugin.utils.Tools.*;
+
+
 public class JsonEncoder extends Encoder implements UpdateIDListener, ConnectListener
 {
-    static ObjectMapper objectMapper = new ObjectMapper();
-
     ArrayList<Integer> exclude = new ArrayList<>();
 
     public void addExclude(int id)
@@ -68,8 +68,8 @@ public class JsonEncoder extends Encoder implements UpdateIDListener, ConnectLis
                     return "/disconnect";
                 }
 
-                return (commandMap.targetid == -1 ? "" : "/to " + commandMap.targetid + " ")
-                        + commandMap.command + " " + String.join(" ",commandMap.args);
+                return /*(commandMap.targetid == -1 ? "" : "/to " + commandMap.targetid + " ")
+                        +*/ commandMap.command + " " + String.join(" ",commandMap.args);
             }
             catch (JsonProcessingException e)
             {

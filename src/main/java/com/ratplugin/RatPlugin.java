@@ -1,6 +1,7 @@
 package com.ratplugin;
 
 import com.ratplugin.commands.Admin;
+import com.ratplugin.commands.Current;
 import com.ratplugin.commands.Info;
 import com.ratplugin.commands.ListRats;
 import com.serverd.client.Client;
@@ -43,6 +44,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         plugin.addCommand(new ListRats());
         plugin.addCommand(new Admin());
         plugin.addCommand(new Info(plugin));
+        plugin.addCommand(new Current());
 
         return null;
     }
