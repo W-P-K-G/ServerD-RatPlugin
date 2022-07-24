@@ -72,7 +72,7 @@ public class ClientUtils
     public static void removeFromRatList(Client client,RatPlugin instance)
     {
         if (isRat(client,instance))
-            instance.ratsID.remove(client.id);
+            instance.ratsID.remove(instance.ratsID.lastIndexOf(client.id));
     }
 
     public static boolean isAdmin(Client client,RatPlugin instance)
@@ -98,6 +98,6 @@ public class ClientUtils
     public static void removeFromAdminList(Client client,RatPlugin instance)
     {
         if (isAdmin(client,instance))
-            instance.adminsID.remove(client.id);
+            instance.adminsID.remove(instance.adminsID.lastIndexOf(client.id));
     }
 }

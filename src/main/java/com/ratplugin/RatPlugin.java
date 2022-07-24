@@ -19,8 +19,6 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
 
     public JsonEncoder jsonEncoder;
 
-    public static final String AUTHTOKEN = "qwerty1234";
-
     @Override
     public void metadata(Plugin.Info info)
     {

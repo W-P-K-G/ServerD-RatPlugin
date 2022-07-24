@@ -62,12 +62,6 @@ public class JsonEncoder extends Encoder implements UpdateIDListener, ConnectLis
             {
                 CommandMap commandMap = objectMapper.readValue(message,CommandMap.class);
 
-                if (!commandMap.authtoken.equals(RatPlugin.AUTHTOKEN))
-                {
-                    client.log.log("Command have invalid authtoken... disonnecting...");
-                    return "/disconnect";
-                }
-
                 return /*(commandMap.targetid == -1 ? "" : "/to " + commandMap.targetid + " ")
                         +*/ commandMap.command + " " + String.join(" ",commandMap.args);
             }

@@ -11,7 +11,7 @@ public class Admin extends Command
     public Admin()
     {
         command = "/admin";
-        help = "/admin <authtoken> <with-json (optional)> - Makes admin from client";
+        help = "/admin <with-json (optional)> - Makes admin from client";
     }
 
     @Override
@@ -20,12 +20,6 @@ public class Admin extends Command
         if (args.length >= 1)
         {
             RatPlugin instance = (RatPlugin) plugin.getInstance();
-
-            if (!args[0].equals(RatPlugin.AUTHTOKEN))
-            {
-                client.send("Invalid Authtoken");
-                return;
-            }
 
             client.send("Switched to admin mode");
 
@@ -36,7 +30,7 @@ public class Admin extends Command
             client.programlog.setName("Admin Program " + client.id);
 
             if (args.length >= 2)
-                if (args[1].equals("with-json"))
+                if (args[0].equals("with-json"))
                     client.setEncoder(instance.jsonEncoder);
         }
         else client.send("Missing argument");
