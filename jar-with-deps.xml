@@ -13,9 +13,9 @@
             <useProjectArtifact>false</useProjectArtifact>
             <unpack>true</unpack>
             <scope>runtime</scope>
-<!--            <excludes>-->
-<!--              <exclude>com.serverd:ServerD</exclude>-->
-<!--            </excludes>-->
+                <excludes>
+                  <exclude>com.serverd:ServerD</exclude>
+                </excludes>
            </dependencySet>
         </dependencySets>
         <fileSets>
