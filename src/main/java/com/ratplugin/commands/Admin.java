@@ -17,23 +17,18 @@ public class Admin extends Command
     @Override
     public void execute(String[] args, Client client, Plugin plugin)
     {
-        if (args.length >= 1)
-        {
-            RatPlugin instance = (RatPlugin) plugin.getInstance();
+        RatPlugin instance = (RatPlugin) plugin.getInstance();
 
-            client.send("Switched to admin mode");
+        client.send("Switched to admin mode");
 
-            ClientUtils.removeFromRatList(client,instance);
+        ClientUtils.removeFromRatList(client,instance);
 
-            client.name = "Admin " + client.id + " (From terminal)";
-            client.log.setName("Admin Thread " + client.id);
-            client.programlog.setName("Admin Program " + client.id);
+        client.name = "Admin " + client.id + " (From terminal)";
+        client.log.setName("Admin Thread " + client.id);
+        client.programlog.setName("Admin Program " + client.id);
 
-            if (args.length >= 2)
-                if (args[0].equals("with-json"))
-                    client.setEncoder(instance.jsonEncoder);
-        }
-        else client.send("Missing argument");
-
+        if (args.length >= 2)
+            if (args[0].equals("with-json"))
+                client.setEncoder(instance.jsonEncoder);
     }
 }
