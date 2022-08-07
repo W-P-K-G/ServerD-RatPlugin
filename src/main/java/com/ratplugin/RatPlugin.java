@@ -18,6 +18,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     public ArrayList<Integer> adminsID,ratsID;
 
     public JsonEncoder jsonEncoder;
+    public Pinger pinger;
 
     @Override
     public void metadata(Plugin.Info info)
@@ -35,6 +36,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         ratsID = new ArrayList<>();
 
         jsonEncoder = new JsonEncoder(plugin);
+        pinger = new Pinger(plugin,1,20000);
 
         plugin.addConnectListener(this);
         plugin.addUpdateIDListener(this);
@@ -50,7 +52,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     @Override
     public void work(Plugin plugin)
     {
-
+        pinger.startPinger(plugin,this);
     }
 
     @Override
@@ -69,7 +71,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     {
         if (client.protocol == Client.Protocol.UDP)
         {
-            ClientUtils.makeAdmin(client,this,true);
+            ClientUtils.makeAdmin(client,this,false);
             ClientUtils.addToAdminList(client,this);
         }
         else
