@@ -45,9 +45,12 @@ public class Pinger
 
     public void startPinger(Plugin plugin,RatPlugin instance)
     {
-        while(plugin.isRunned)
+        while (plugin.isRunned)
         {
             Util.sleep((long) (interval * 60 * 1000));
+
+            if (instance.ratsID.isEmpty())
+                continue;
 
             plugin.Log("Starting pinging...");
             ArrayList<Integer> forRemoval = new ArrayList<>();
