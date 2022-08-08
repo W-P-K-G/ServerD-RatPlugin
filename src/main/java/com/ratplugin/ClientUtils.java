@@ -82,8 +82,8 @@ public class ClientUtils
 
     public static void makeAdmin(Client client,RatPlugin instance,boolean json)
     {
-        if (json)
-            client.setEncoder(instance.jsonEncoder);
+//        if (json)
+//            client.setEncoder(instance.jsonEncoder);
 
         client.name = "Admin " + client.id;
         client.log.setName("Admin Thread " + client.id);

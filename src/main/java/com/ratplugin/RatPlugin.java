@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListener
 {
     public ArrayList<Integer> adminsID,ratsID;
-
-    public JsonEncoder jsonEncoder;
     public Pinger pinger;
+
+    NewlineReplacer newlineReplacer;
 
     @Override
     public void metadata(Plugin.Info info)
@@ -35,8 +35,8 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         adminsID = new ArrayList<>();
         ratsID = new ArrayList<>();
 
-        jsonEncoder = new JsonEncoder(plugin);
         pinger = new Pinger(plugin,1,20000);
+        newlineReplacer = new NewlineReplacer();
 
         plugin.addConnectListener(this);
         plugin.addUpdateIDListener(this);
@@ -69,6 +69,8 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     @Override
     public void onConnect(Plugin plugin, Client client)
     {
+        client.setEncoder(newlineReplacer);
+
         if (client.protocol == Client.Protocol.UDP)
         {
             ClientUtils.makeAdmin(client,this,false);

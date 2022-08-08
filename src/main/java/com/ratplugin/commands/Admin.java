@@ -27,8 +27,8 @@ public class Admin extends Command
         client.log.setName("Admin Thread " + client.id);
         client.programlog.setName("Admin Program " + client.id);
 
-        if (args.length >= 1)
-            if (args[0].equals("with-json"))
-                client.setEncoder(instance.jsonEncoder);
+//        if (args.length >= 1)
+//            if (args[0].equals("with-json"))
+//                client.setEncoder(instance.jsonEncoder);
     }
 }
