@@ -16,11 +16,14 @@ public class ClientUtils
 
         public boolean joined;
 
-        public ClientObject(int id,String name,boolean joined)
+        public String version;
+
+        public ClientObject(int id,String name,boolean joined,String version)
         {
             this.id = id;
             this.name = name;
             this.joined = joined;
+            this.version = version;
         }
     }
 
@@ -38,7 +41,7 @@ public class ClientUtils
         {
             Client c = ClientManager.getClient(instance.ratsID.get(i));
 
-            clientmap.clients[i] = new ClientObject(c.id,c.name,c.joinedid != -1);
+            clientmap.clients[i] = new ClientObject(c.id,c.name,c.joinedid != -1,"Unknown");
         }
 
         try
