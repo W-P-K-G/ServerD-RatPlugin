@@ -12,7 +12,7 @@ import java.util.Date;
 
 import static com.ratplugin.utils.Tools.objectMapper;
 
-public class Info extends Command implements ConnectListener
+public class ConnectTime extends Command implements ConnectListener
 {
 
     public class ConnectInfo
@@ -28,11 +28,11 @@ public class Info extends Command implements ConnectListener
 
     ArrayList<ConnectInfo> infos = new ArrayList<>();
 
-    public Info(Plugin plugin)
+    public ConnectTime(Plugin plugin)
     {
-        command = "/info";
+        command = "/connect-time";
 
-        help = "/info <id> - shows client connect date";
+        help = "/connect-time <id> - shows client connect date";
 
         plugin.addConnectListener(this);
     }

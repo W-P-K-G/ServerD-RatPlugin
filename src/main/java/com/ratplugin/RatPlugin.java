@@ -1,9 +1,6 @@
 package com.ratplugin;
 
-import com.ratplugin.commands.Admin;
-import com.ratplugin.commands.Current;
-import com.ratplugin.commands.Info;
-import com.ratplugin.commands.ListRats;
+import com.ratplugin.commands.*;
 import com.serverd.client.Client;
 import com.serverd.plugin.Debug;
 import com.serverd.plugin.Plugin;
@@ -17,6 +14,8 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
 {
     public ArrayList<Integer> adminsID,ratsID;
     public Pinger pinger;
+
+    public About about;
 
     NewlineReplacer newlineReplacer;
 
@@ -37,14 +36,16 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
 
         pinger = new Pinger(plugin,1,20000);
         newlineReplacer = new NewlineReplacer();
+        about = new About(plugin);
 
         plugin.addConnectListener(this);
         plugin.addUpdateIDListener(this);
 
         plugin.addCommand(new ListRats());
         plugin.addCommand(new Admin());
-        plugin.addCommand(new Info(plugin));
+        plugin.addCommand(new ConnectTime(plugin));
         plugin.addCommand(new Current());
+        plugin.addCommand(about);
 
         return null;
     }

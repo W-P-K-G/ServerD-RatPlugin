@@ -1,6 +1,7 @@
 package com.ratplugin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ratplugin.commands.About;
 import com.serverd.client.Client;
 import com.serverd.client.ClientManager;
 
@@ -41,7 +42,8 @@ public class ClientUtils
         {
             Client c = ClientManager.getClient(instance.ratsID.get(i));
 
-            clientmap.clients[i] = new ClientObject(c.id,c.name,c.joinedid != -1,"Unknown");
+            About.AboutInfo aboutinfo = instance.about.aboutInfo.get(c.id);
+            clientmap.clients[i] = new ClientObject(c.id,c.name,c.joinedid != -1,aboutinfo.version);
         }
 
         try
