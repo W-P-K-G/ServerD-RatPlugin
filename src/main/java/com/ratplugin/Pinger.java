@@ -7,6 +7,7 @@ import com.serverd.plugin.command.Command;
 import com.serverd.util.Util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Pinger
 {
@@ -64,6 +65,7 @@ public class Pinger
                 timeoutWaiting(plugin, client,forRemoval);
             }
 
+            Collections.reverse(forRemoval);
             for (int id : forRemoval)
             {
                 plugin.Log("Client " + id + " not responsing, removing...");
