@@ -32,14 +32,14 @@ public class Pinger
         {
             if (!client.connected)
             {
-                plugin.Log("Client " + client.id + " closed connection, ignoring...");
+                plugin.info("Client " + client.id + " closed connection, ignoring...");
                 return;
             }
             if (buffer)
             {
                 buffer = false;
 
-                plugin.Log("Client " + client.id + " responsed");
+                plugin.info("Client " + client.id + " responsed");
                 return;
             }
             Util.sleep(Math.min(100,i));
@@ -58,7 +58,7 @@ public class Pinger
             if (instance.ratsID.isEmpty())
                 continue;
 
-            plugin.Log("Starting pinging...");
+            plugin.info("Starting pinging...");
             ArrayList<Integer> forRemoval = new ArrayList<>();
 
             int index = 0;
@@ -75,7 +75,7 @@ public class Pinger
             Collections.reverse(forRemoval);
             for (int id : forRemoval)
             {
-                plugin.Log("Client " + id + " not responsing, removing...");
+                plugin.info("Client " + id + " not responsing, removing...");
                 ClientManager.delete(id);
             }
         }
