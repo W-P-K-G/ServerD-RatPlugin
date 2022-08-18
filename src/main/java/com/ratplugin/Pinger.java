@@ -30,6 +30,11 @@ public class Pinger
     {
         for (int i = 0; i < timeout;i+=100)
         {
+            if (!client.connected)
+            {
+                plugin.Log("Client " + client.id + " closed connection, ignoring...");
+                return;
+            }
             if (buffer)
             {
                 buffer = false;
@@ -56,13 +61,15 @@ public class Pinger
             plugin.Log("Starting pinging...");
             ArrayList<Integer> forRemoval = new ArrayList<>();
 
-            for (int id : instance.ratsID)
+            int index = 0;
+            while (index < instance.ratsID.size())
             {
-                Client client = ClientManager.getClient(id);
+                Client client = ClientManager.getClient(index);
 
                 client.send("ping");
 
                 timeoutWaiting(plugin, client,forRemoval);
+                index++;
             }
 
             Collections.reverse(forRemoval);

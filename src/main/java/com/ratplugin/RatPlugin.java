@@ -70,7 +70,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     @Override
     public void onConnect(Plugin plugin, Client client)
     {
-        client.setEncoder(newlineReplacer);
+        //client.setEncoder(newlineReplacer);
 
         if (client.protocol == Client.Protocol.UDP)
         {
