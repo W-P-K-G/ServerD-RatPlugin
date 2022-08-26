@@ -26,13 +26,14 @@ public class Pinger
         plugin.addCommand(new ReceivedCommand(this,"Ping"));
     }
 
-    public void timeoutWaiting(Plugin plugin,Client client,ArrayList<Integer> forRemoval)
+    public void timeoutWaiting(Plugin plugin,Client client,ArrayList<Client> forRemoval)
     {
         for (int i = 0; i < timeout;i+=100)
         {
             if (!client.connected)
             {
                 plugin.info("Client " + client.id + " closed connection, ignoring...");
+                buffer = false;
                 return;
             }
             if (buffer)
@@ -46,7 +47,7 @@ public class Pinger
         }
         buffer = false;
 
-        forRemoval.add(client.id);
+        forRemoval.add(client);
     }
 
     public void startPinger(Plugin plugin,RatPlugin instance)
@@ -59,24 +60,24 @@ public class Pinger
                 continue;
 
             plugin.info("Starting pinging...");
-            ArrayList<Integer> forRemoval = new ArrayList<>();
+            ArrayList<Client> forRemoval = new ArrayList<>();
 
-            int index = 0;
-            while (index < instance.ratsID.size())
+            ArrayList<Client> rats = new ArrayList<>();
+            for (int id : instance.ratsID)
+                rats.add(ClientManager.getClient(id));
+
+            for (Client client : rats)
             {
-                Client client = ClientManager.getClient(index);
-
                 client.send("ping");
 
                 timeoutWaiting(plugin, client,forRemoval);
-                index++;
             }
 
             Collections.reverse(forRemoval);
-            for (int id : forRemoval)
+            for (Client client : forRemoval)
             {
-                plugin.info("Client " + id + " not responsing, removing...");
-                ClientManager.delete(id);
+                plugin.info("Client " + client.id + " not responsing, removing...");
+                ClientManager.delete(client.id);
             }
         }
     }

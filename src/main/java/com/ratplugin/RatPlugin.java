@@ -94,20 +94,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     @Override
     public void updateID(Plugin plugin, int oldid, int newid)
     {
-        //admins
-        if (adminsID.size() > 0)
-        {
-            int index = adminsID.lastIndexOf(oldid);
-            if (index != -1)
-                adminsID.set(index, newid);
-        }
-
-        //rats
-        if (ratsID.size() > 0)
-        {
-            int index = ratsID.lastIndexOf(oldid);
-            if (index != -1)
-                ratsID.set(index, newid);
-        }
+        updateIDInList(adminsID,oldid,newid);
+        updateIDInList(ratsID,oldid,newid);
     }
 }
