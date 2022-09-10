@@ -7,6 +7,7 @@ import com.serverd.plugin.Plugin;
 import com.serverd.plugin.command.Command;
 import com.serverd.plugin.listener.ConnectListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class About extends Command implements ConnectListener
@@ -27,7 +28,7 @@ public class About extends Command implements ConnectListener
     }
 
     @Override
-    public void execute(String[] args, Client client, Plugin plugin)
+    public void execute(String[] args, Client client, Plugin plugin) throws IOException
     {
         if (checkArgs(args, 1) == 0)
         {

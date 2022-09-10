@@ -3,9 +3,10 @@ package com.ratplugin;
 import com.serverd.client.Client;
 import com.serverd.client.ClientManager;
 import com.serverd.plugin.Plugin;
-import com.serverd.plugin.command.Command;
+import com.serverd.plugin.listener.ExecutionController;
 import com.serverd.util.Util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,21 +17,21 @@ public class Pinger
 
     boolean buffer = false;
 
+    boolean isPinging = false;
+
     public Pinger(Plugin plugin,double interval,int timeout)
     {
         this.timeout = timeout;
         this.interval = interval;
 
-        plugin.addCommand(new ReceivedCommand(this,"ping-received"));
-        //backward compatibility with "normal message" ping from WPKG rat
-        plugin.addCommand(new ReceivedCommand(this,"Ping"));
+        plugin.addExecutionController(new Receiver(this));
     }
 
     public void timeoutWaiting(Plugin plugin,Client client,ArrayList<Client> forRemoval)
     {
         for (int i = 0; i < timeout;i+=100)
         {
-            if (!client.connected)
+            if (!client.isConnected())
             {
                 plugin.info("Client " + client.id + " closed connection, ignoring...");
                 buffer = false;
@@ -54,7 +55,10 @@ public class Pinger
     {
         while (plugin.isRunned)
         {
+            isPinging = false;
             Util.sleep((long) (interval * 60 * 1000));
+
+            isPinging = true;
 
             if (instance.ratsID.isEmpty())
                 continue;
@@ -68,9 +72,15 @@ public class Pinger
 
             for (Client client : rats)
             {
-                client.send("ping");
-
-                timeoutWaiting(plugin, client,forRemoval);
+                try
+                {
+                    client.send("ping");
+                    timeoutWaiting(plugin, client,forRemoval);
+                }
+                catch (IOException e)
+                {
+                    plugin.error("Error sending message: " + e.getMessage());
+                }
             }
 
             Collections.reverse(forRemoval);
@@ -83,20 +93,26 @@ public class Pinger
     }
 }
 
-class ReceivedCommand extends Command
+class Receiver implements ExecutionController
 {
     Pinger pinger;
-    public ReceivedCommand(Pinger pinger,String pingKeyword)
+    public Receiver(Pinger pinger)
     {
         this.pinger = pinger;
-
-        command = pingKeyword;
-        //no help
-        help = "";
     }
+
     @Override
-    public void execute(String[] args, Client client, Plugin plugin)
+    public boolean controlCommand(String command, String[] args, Client client, Plugin plugin)
     {
-        pinger.buffer = true;
+        if (pinger.isPinging)
+        {
+            if (command.equals("ping-received"))
+            {
+                pinger.buffer = true;
+                return false;
+            }
+            else return true;
+        }
+        else return true;
     }
 }

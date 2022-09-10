@@ -6,6 +6,8 @@ import com.serverd.client.ClientManager;
 import com.serverd.plugin.Plugin;
 import com.serverd.plugin.command.Command;
 
+import java.io.IOException;
+
 import static com.ratplugin.utils.Tools.*;
 
 public class Current extends Command
@@ -25,9 +27,9 @@ public class Current extends Command
     }
 
     @Override
-    public void execute(String[] args, Client client, Plugin plugin)
+    public void execute(String[] args, Client client, Plugin plugin) throws IOException
     {
-        Client joiner = client.joinedid == -1 ? null : ClientManager.getClient(client.joinedid);
+        Client joiner = client.getJoinedID() == -1 ? null : ClientManager.getClient(client.getJoinedID());
         
         CurrentMap map = new CurrentMap();
         if (joiner != null)

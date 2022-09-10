@@ -6,6 +6,7 @@ import com.serverd.plugin.Plugin;
 import com.serverd.plugin.command.Command;
 import com.serverd.plugin.listener.ConnectListener;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class ConnectTime extends Command implements ConnectListener
         plugin.addConnectListener(this);
     }
     @Override
-    public void execute(String[] args, Client client, Plugin plugin)
+    public void execute(String[] args, Client client, Plugin plugin) throws IOException
     {
         if (checkArgs(args,1) == 0)
         {

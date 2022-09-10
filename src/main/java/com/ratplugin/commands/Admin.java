@@ -6,6 +6,8 @@ import com.serverd.client.Client;
 import com.serverd.plugin.Plugin;
 import com.serverd.plugin.command.Command;
 
+import java.io.IOException;
+
 public class Admin extends Command
 {
     public Admin()
@@ -15,7 +17,7 @@ public class Admin extends Command
     }
 
     @Override
-    public void execute(String[] args, Client client, Plugin plugin)
+    public void execute(String[] args, Client client, Plugin plugin) throws IOException
     {
         RatPlugin instance = (RatPlugin) plugin.getInstance();
 
