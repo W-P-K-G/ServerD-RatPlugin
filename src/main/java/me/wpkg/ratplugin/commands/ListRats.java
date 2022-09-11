@@ -1,7 +1,7 @@
-package com.ratplugin.commands;
+package me.wpkg.ratplugin.commands;
 
-import com.ratplugin.ClientUtils;
-import com.ratplugin.RatPlugin;
+import me.wpkg.ratplugin.ClientUtils;
+import me.wpkg.ratplugin.RatPlugin;
 import com.serverd.client.Client;
 import com.serverd.plugin.Plugin;
 import com.serverd.plugin.command.Command;

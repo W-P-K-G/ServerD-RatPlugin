@@ -1,11 +1,11 @@
-package com.ratplugin;
+package me.wpkg.ratplugin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.ratplugin.commands.About;
+import me.wpkg.ratplugin.commands.About;
 import com.serverd.client.Client;
 import com.serverd.client.ClientManager;
 
-import static com.ratplugin.utils.Tools.*;
+import static me.wpkg.ratplugin.utils.Tools.*;
 
 public class ClientUtils
 {

@@ -1,4 +1,4 @@
-package com.ratplugin.utils;
+package me.wpkg.ratplugin.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

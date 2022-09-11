@@ -1,4 +1,4 @@
-package com.ratplugin.commands;
+package me.wpkg.ratplugin.commands;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.serverd.client.Client;
@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static com.ratplugin.utils.Tools.objectMapper;
+import static me.wpkg.ratplugin.utils.Tools.objectMapper;
 
 public class ConnectTime extends Command implements ConnectListener
 {

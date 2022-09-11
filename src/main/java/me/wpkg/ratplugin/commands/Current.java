@@ -1,4 +1,4 @@
-package com.ratplugin.commands;
+package me.wpkg.ratplugin.commands;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.serverd.client.Client;
@@ -8,7 +8,7 @@ import com.serverd.plugin.command.Command;
 
 import java.io.IOException;
 
-import static com.ratplugin.utils.Tools.*;
+import static me.wpkg.ratplugin.utils.Tools.*;
 
 public class Current extends Command
 {

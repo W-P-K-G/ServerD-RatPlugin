@@ -1,4 +1,4 @@
-package com.ratplugin;
+package me.wpkg.ratplugin;
 
 import com.serverd.client.Client;
 
