@@ -41,6 +41,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
 
         plugin.addConnectListener(this);
         plugin.addUpdateIDListener(this);
+        plugin.addExecutionController(new RatController());
 
         plugin.addConnectListener(new AdminSessionManager());
 
@@ -50,7 +51,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         plugin.addCommand(new Current());
         plugin.addCommand(about);
 
-        return null;
+        return INIT_SUCCESS;
     }
 
     @Override

@@ -42,8 +42,8 @@ public class ClientUtils
         {
             Client c = ClientManager.getClient(instance.ratsID.get(i));
 
-            About.AboutInfo aboutinfo = instance.about.aboutInfo.get(c.id);
-            clientmap.clients[i] = new ClientObject(c.id,c.name,c.getJoinedID() != -1,aboutinfo.version);
+            About.AboutInfo aboutInfo = instance.about.aboutInfo.get(c.id);
+            clientmap.clients[i] = new ClientObject(c.id,c.name,c.getJoinedID() != -1,aboutInfo.version);
         }
 
         try
