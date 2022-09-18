@@ -1,6 +1,7 @@
-package me.wpkg.ratplugin;
+package me.wpkg.ratplugin.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import me.wpkg.ratplugin.RatPlugin;
 import me.wpkg.ratplugin.commands.About;
 import com.serverd.client.Client;
 import com.serverd.client.ClientManager;

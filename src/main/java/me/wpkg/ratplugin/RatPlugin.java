@@ -1,7 +1,5 @@
 package me.wpkg.ratplugin;
 
-import me.wpkg.ratplugin.commands.*;
-
 import com.serverd.client.Client;
 import com.serverd.plugin.Debug;
 import com.serverd.plugin.Plugin;
@@ -9,16 +7,16 @@ import com.serverd.plugin.ServerdPlugin;
 import com.serverd.plugin.listener.ConnectListener;
 import com.serverd.plugin.listener.UpdateIDListener;
 
-import java.util.ArrayList;
+import me.wpkg.ratplugin.utils.ClientUtils;
+import me.wpkg.ratplugin.commands.*;
 
+import java.util.ArrayList;
 public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListener
 {
     public ArrayList<Integer> adminsID,ratsID;
     public Pinger pinger;
 
     public About about;
-
-    NewlineReplacer newlineReplacer;
 
     @Override
     public void metadata(Plugin.Info info)
@@ -36,7 +34,6 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         ratsID = new ArrayList<>();
 
         pinger = new Pinger(plugin,1,20000);
-        newlineReplacer = new NewlineReplacer();
         about = new About(plugin);
 
         plugin.addConnectListener(this);
@@ -74,9 +71,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     @Override
     public void onConnect(Plugin plugin, Client client)
     {
-        //client.setEncoder(newlineReplacer);
-
-        if (client.protocol == Client.Protocol.UDP)
+        if (client.getProtocol() == Client.Protocol.UDP)
         {
             ClientUtils.makeAdmin(client,this,false);
             ClientUtils.addToAdminList(client,this);

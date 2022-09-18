@@ -4,6 +4,8 @@ import com.serverd.client.Client;
 import com.serverd.plugin.Plugin;
 import com.serverd.plugin.listener.ExecutionController;
 
+import me.wpkg.ratplugin.utils.ClientUtils;
+
 import java.io.IOException;
 
 public class RatController implements ExecutionController
