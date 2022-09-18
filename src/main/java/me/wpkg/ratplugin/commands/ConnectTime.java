@@ -60,6 +60,6 @@ public class ConnectTime extends Command implements ConnectListener
     @Override
     public void onDisconnect(Plugin plugin, Client client)
     {
-        infos.remove(client.id);
+        infos.remove(client.getID());
     }
 }

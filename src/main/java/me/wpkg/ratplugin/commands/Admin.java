@@ -25,9 +25,9 @@ public class Admin extends Command
 
         ClientUtils.removeFromRatList(client,instance);
 
-        client.name = "Admin " + client.id + " (From terminal)";
-        client.log.setName("Admin Thread " + client.id);
-        client.programlog.setName("Admin Program " + client.id);
+        client.setName("Admin " + client.getID() + " (From terminal)");
+        client.log.setName("Admin Thread " + client.getID());
+        client.programlog.setName("Admin Program " + client.getID());
 
 //        if (args.length >= 1)
 //            if (args[0].equals("with-json"))

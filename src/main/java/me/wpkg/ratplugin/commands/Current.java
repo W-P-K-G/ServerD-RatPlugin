@@ -34,8 +34,8 @@ public class Current extends Command
         CurrentMap map = new CurrentMap();
         if (joiner != null)
         {
-            map.id = joiner.id;
-            map.name = joiner.name;
+            map.id = joiner.getID();
+            map.name = joiner.getName();
             map.joined = true;
         }
 

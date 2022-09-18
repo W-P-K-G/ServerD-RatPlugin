@@ -33,7 +33,7 @@ public class Pinger
         {
             if (!client.isConnected())
             {
-                plugin.info("Client " + client.id + " closed connection, ignoring...");
+                plugin.info("Client " + client.getID() + " closed connection, ignoring...");
                 buffer = false;
                 return;
             }
@@ -41,7 +41,7 @@ public class Pinger
             {
                 buffer = false;
 
-                plugin.info("Client " + client.id + " responsed");
+                plugin.info("Client " + client.getID() + " responsed");
                 return;
             }
             Util.sleep(Math.min(100,i));
@@ -53,7 +53,7 @@ public class Pinger
 
     public void startPinger(Plugin plugin,RatPlugin instance)
     {
-        while (plugin.isRunned)
+        while (plugin.isRunned())
         {
             isPinging = false;
             Util.sleep((long) (interval * 60 * 1000));
@@ -86,8 +86,8 @@ public class Pinger
             Collections.reverse(forRemoval);
             for (Client client : forRemoval)
             {
-                plugin.info("Client " + client.id + " not responsing, removing...");
-                ClientManager.delete(client.id);
+                plugin.info("Client " + client.getID() + " not responsing, removing...");
+                ClientManager.delete(client.getID());
             }
         }
     }

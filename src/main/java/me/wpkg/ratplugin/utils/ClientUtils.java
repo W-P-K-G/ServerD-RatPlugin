@@ -43,8 +43,8 @@ public class ClientUtils
         {
             Client c = ClientManager.getClient(instance.ratsID.get(i));
 
-            About.AboutInfo aboutInfo = instance.about.aboutInfo.get(c.id);
-            clientmap.clients[i] = new ClientObject(c.id,c.name,c.getJoinedID() != -1,aboutInfo.version);
+            About.AboutInfo aboutInfo = instance.about.aboutInfo.get(c.getID());
+            clientmap.clients[i] = new ClientObject(c.getID(),c.getName(),c.getJoinedID() != -1,aboutInfo.version);
         }
 
         try
@@ -60,30 +60,30 @@ public class ClientUtils
 
     public static boolean isRat(Client client,RatPlugin instance)
     {
-       return instance.ratsID.lastIndexOf(client.id) != -1;
+       return instance.ratsID.lastIndexOf(client.getID()) != -1;
     }
 
     public static void makeRat(Client client)
     {
-        client.name = "RAT " + client.id;
-        client.log.setName("RAT Thread " + client.id);
-        client.programlog.setName("RAT Program " + client.id);
+        client.setName("RAT " + client.getID());
+        client.log.setName("RAT Thread " + client.getID());
+        client.programlog.setName("RAT Program " + client.getID());
     }
 
     public static void addToRatList(Client client,RatPlugin instance)
     {
-        instance.ratsID.add(client.id);
+        instance.ratsID.add(client.getID());
     }
 
     public static void removeFromRatList(Client client,RatPlugin instance)
     {
         if (isRat(client,instance))
-            instance.ratsID.remove(instance.ratsID.lastIndexOf(client.id));
+            instance.ratsID.remove(instance.ratsID.lastIndexOf(client.getID()));
     }
 
     public static boolean isAdmin(Client client,RatPlugin instance)
     {
-        return instance.adminsID.lastIndexOf(client.id) != -1;
+        return instance.adminsID.lastIndexOf(client.getID()) != -1;
     }
 
     public static void makeAdmin(Client client,RatPlugin instance,boolean json)
@@ -91,19 +91,19 @@ public class ClientUtils
 //        if (json)
 //            client.setEncoder(instance.jsonEncoder);
 
-        client.name = "Admin " + client.id;
-        client.log.setName("Admin Thread " + client.id);
-        client.programlog.setName("Admin Program " + client.id);
+        client.setName("Admin " + client.getID());
+        client.log.setName("Admin Thread " + client.getID());
+        client.programlog.setName("Admin Program " + client.getID());
     }
 
     public static void addToAdminList(Client client,RatPlugin instance)
     {
-        instance.adminsID.add(client.id);
+        instance.adminsID.add(client.getID());
     }
 
     public static void removeFromAdminList(Client client,RatPlugin instance)
     {
         if (isAdmin(client,instance))
-            instance.adminsID.remove(instance.adminsID.lastIndexOf(client.id));
+            instance.adminsID.remove(instance.adminsID.lastIndexOf(client.getID()));
     }
 }

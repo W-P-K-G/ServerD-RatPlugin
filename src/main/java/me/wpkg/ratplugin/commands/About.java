@@ -34,7 +34,7 @@ public class About extends Command implements ConnectListener
         {
             if (ClientUtils.isRat(client, (RatPlugin) plugin.getInstance()))
             {
-                AboutInfo about = aboutInfo.get(client.id);
+                AboutInfo about = aboutInfo.get(client.getID());
                 about.version = args[0];
                 client.send("Done");
             }
@@ -50,7 +50,7 @@ public class About extends Command implements ConnectListener
     @Override
     public void onDisconnect(Plugin plugin, Client client)
     {
-        aboutInfo.remove(client.id);
+        aboutInfo.remove(client.getID());
     }
 
 }
