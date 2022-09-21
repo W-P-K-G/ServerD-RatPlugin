@@ -29,8 +29,11 @@
                     <archive>
                         <manifest>
                             <addClasspath>false</addClasspath>
-                            <mainClass>me.wpkg.cli.main.Main</mainClass>
+                            <mainClass>me.wpkg.ratplugin.RatPlugin</mainClass>
                         </manifest>
+                        <manifestEntries>
+                            <Plugin-Main-Class>me.wpkg.ratplugin.RatPlugin</Plugin-Main-Class>
+                        </manifestEntries>
                     </archive>
                     <descriptors>
                         <descriptor>${project.basedir}/jar-with-deps.xml</descriptor>
