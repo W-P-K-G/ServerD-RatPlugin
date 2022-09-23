@@ -32,7 +32,6 @@ public class ConnectTime extends Command implements ConnectListener
     public ConnectTime(Plugin plugin)
     {
         command = "/connect-time";
-
         help = "/connect-time <id> - shows client connect date";
 
         plugin.addConnectListener(this);

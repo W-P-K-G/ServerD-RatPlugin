@@ -46,6 +46,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         plugin.addCommand(new Admin());
         plugin.addCommand(new ConnectTime(plugin));
         plugin.addCommand(new Current());
+        plugin.addCommand(new RegisterAdmin(plugin));
         plugin.addCommand(about);
 
         return INIT_SUCCESS;

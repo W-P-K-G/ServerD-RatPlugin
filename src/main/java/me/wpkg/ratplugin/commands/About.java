@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class About extends Command implements ConnectListener
 {
-    public class AboutInfo
+    public static class AboutInfo
     {
         public String version = "Unknown";
     }
@@ -21,10 +21,10 @@ public class About extends Command implements ConnectListener
 
     public About(Plugin plugin)
     {
-        plugin.addConnectListener(this);
-
         command = "/about";
         help = "/about <version> - setting information about WPKG Rat (visible in /rat-list command)";
+
+        plugin.addConnectListener(this);
     }
 
     @Override
