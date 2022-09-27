@@ -17,7 +17,7 @@ public class Pinger
 
     boolean buffer = false;
 
-    boolean isPinging = false;
+    boolean isPinging = false,isRunning = false;
 
     public Pinger(Plugin plugin,double interval,int timeout)
     {
@@ -50,10 +50,15 @@ public class Pinger
 
         forRemoval.add(client);
     }
+    public void stop()
+    {
+        isRunning = false;
+    }
 
     public void startPinger(Plugin plugin,RatPlugin instance)
     {
-        while (plugin.isRunned())
+        isRunning = true;
+        while (plugin.isRunned() && isRunning)
         {
             isPinging = false;
             Util.sleep((long) (interval * 60 * 1000));
@@ -90,6 +95,7 @@ public class Pinger
                 ClientManager.delete(client.getID());
             }
         }
+        isRunning = false;
     }
 }
 

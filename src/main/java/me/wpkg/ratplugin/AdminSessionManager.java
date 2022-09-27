@@ -16,7 +16,7 @@ public class AdminSessionManager implements ConnectListener
 {
     public static final int SESSION_TIME = 5 * 60;
 
-    private final Log log = new Log("Admin Session Manager");
+    private static final Log log = new Log("Admin Session Manager");
 
     @Override
     public void onConnect(Plugin plugin, Client client)
@@ -24,32 +24,35 @@ public class AdminSessionManager implements ConnectListener
         RatPlugin instance = (RatPlugin) plugin.getInstance();
 
         if (ClientUtils.isAdmin(client,instance))
-        {
-            new Thread(() -> {
-                AtomicInteger time = new AtomicInteger(SESSION_TIME);
+            startSessionExpireTimer(plugin, client);
+    }
 
-                ExecutionController controller = (command,args,cl,plug) -> {
-                    time.set(SESSION_TIME);
-                    return true;
-                };
-                plugin.addExecutionController(controller);
+    public static void startSessionExpireTimer(Plugin plugin,Client client)
+    {
+        new Thread(() -> {
+            AtomicInteger time = new AtomicInteger(SESSION_TIME);
 
-                while (client.isConnected())
+            ExecutionController controller = (command,args,cl,plug) -> {
+                time.set(SESSION_TIME);
+                return true;
+            };
+            plugin.addExecutionController(controller);
+
+            while (client.isConnected())
+            {
+                time.getAndDecrement();
+                Util.sleep(1000);
+
+                if (time.get() <= 0)
                 {
-                    time.getAndDecrement();
-                    Util.sleep(1000);
-
-                    if (time.get() <= 0)
-                    {
-                        log.info("Session expired for admin " + client.getID());
-                        ClientManager.delete(client.getID());
-                        break;
-                    }
+                    log.info("Session expired for admin " + client.getID());
+                    ClientManager.delete(client.getID());
+                    break;
                 }
+            }
 
-                plugin.removeExecutionController(controller);
-            },"Session Manager").start();
-        }
+            plugin.removeExecutionController(controller);
+        },"Session Manager").start();
     }
 
     @Override

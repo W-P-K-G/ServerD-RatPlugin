@@ -6,7 +6,7 @@ import me.wpkg.ratplugin.commands.About;
 import com.serverd.client.Client;
 import com.serverd.client.ClientManager;
 
-import static me.wpkg.ratplugin.utils.Tools.*;
+import static me.wpkg.ratplugin.utils.Utils.*;
 
 public class ClientUtils
 {
@@ -86,12 +86,16 @@ public class ClientUtils
         return instance.adminsID.lastIndexOf(client.getID()) != -1;
     }
 
-    public static void makeAdmin(Client client,RatPlugin instance,boolean json)
+    public static void makeAdmin(Client client,RatPlugin instance)
     {
-//        if (json)
-//            client.setEncoder(instance.jsonEncoder);
-
         client.setName("Admin " + client.getID());
+        client.log.setName("Admin Thread " + client.getID());
+        client.programlog.setName("Admin Program " + client.getID());
+    }
+
+    public static void makeConsoleAdmin(Client client)
+    {
+        client.setName("Admin " + client.getID() + " (From terminal)");
         client.log.setName("Admin Thread " + client.getID());
         client.programlog.setName("Admin Program " + client.getID());
     }

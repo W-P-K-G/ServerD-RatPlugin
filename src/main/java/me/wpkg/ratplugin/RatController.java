@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class RatController implements ExecutionController
 {
-    static String[] blockedCommands = {"/to","/join","/unjoin","/close","/plugin"};
+    static String[] blockedCommands = {"/to","/join","/unjoin","/close","/plugin","/setpassword"};
 
     @Override
     public boolean controlCommand(String command, String[] args, Client client, Plugin plugin) throws IOException

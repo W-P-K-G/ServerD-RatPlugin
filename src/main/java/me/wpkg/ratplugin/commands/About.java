@@ -30,7 +30,7 @@ public class About extends Command implements ConnectListener
     @Override
     public void execute(String[] args, Client client, Plugin plugin) throws IOException
     {
-        if (checkArgs(args, 1) == 0)
+        if (checkArgs(args,client, 1) == 0)
         {
             if (ClientUtils.isRat(client, (RatPlugin) plugin.getInstance()))
             {

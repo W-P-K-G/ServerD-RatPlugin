@@ -11,12 +11,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static me.wpkg.ratplugin.utils.Tools.objectMapper;
+import static me.wpkg.ratplugin.utils.Utils.objectMapper;
 
 public class ConnectTime extends Command implements ConnectListener
 {
 
-    public class ConnectInfo
+    public static class ConnectInfo
     {
         public String date,time;
 
@@ -39,7 +39,7 @@ public class ConnectTime extends Command implements ConnectListener
     @Override
     public void execute(String[] args, Client client, Plugin plugin) throws IOException
     {
-        if (checkArgs(args,1) == 0)
+        if (checkArgs(args,client,1) == 0)
         {
             try {
                 client.send(objectMapper.writeValueAsString(infos.get(Integer.parseInt(args[0]))));

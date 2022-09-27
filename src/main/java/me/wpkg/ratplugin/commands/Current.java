@@ -8,7 +8,7 @@ import com.serverd.plugin.command.Command;
 
 import java.io.IOException;
 
-import static me.wpkg.ratplugin.utils.Tools.*;
+import static me.wpkg.ratplugin.utils.Utils.*;
 
 public class Current extends Command
 {
