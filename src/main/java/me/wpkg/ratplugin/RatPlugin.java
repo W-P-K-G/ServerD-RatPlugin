@@ -101,7 +101,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     {
         if (client.getProtocol() == Client.Protocol.UDP)
         {
-            ClientUtils.makeAdmin(client,this);
+            ClientUtils.makeAdmin(client);
             ClientUtils.addToAdminList(client,this);
         }
         else

@@ -1,5 +1,6 @@
 package me.wpkg.ratplugin.commands;
 
+import com.serverd.plugin.listener.UpdateIDListener;
 import me.wpkg.ratplugin.utils.ClientUtils;
 import me.wpkg.ratplugin.RatPlugin;
 import com.serverd.client.Client;

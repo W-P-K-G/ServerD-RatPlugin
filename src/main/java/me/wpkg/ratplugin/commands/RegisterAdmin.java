@@ -47,7 +47,7 @@ public class RegisterAdmin extends Command implements UpdateIDListener, Executio
 
                 if (!ClientUtils.isAdmin(client,instance))
                 {
-                    ClientUtils.makeAdmin(client,instance);
+                    ClientUtils.makeAdmin(client);
                     ClientUtils.addToAdminList(client,instance);
 
                     AdminSessionManager.startSessionExpireTimer(plugin, client);

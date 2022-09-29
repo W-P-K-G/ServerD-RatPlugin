@@ -37,14 +37,13 @@ public class ClientUtils
     public static String ratsListJson(RatPlugin instance)
     {
         ClientMap clientmap = new ClientMap();
-        clientmap.clients = new ClientObject[instance.ratsID.size()];
 
         for (int i = 0;i < clientmap.clients.length;i++)
         {
             Client c = ClientManager.getClient(instance.ratsID.get(i));
 
             About.AboutInfo aboutInfo = instance.about.aboutInfo.get(c.getID());
-            clientmap.clients[i] = new ClientObject(c.getID(),c.getName(),c.getJoinedID() != -1,aboutInfo.version);
+            clientmap.clients[i] = new ClientObject(c.getID(),c.getName(),c.isJoined(),aboutInfo.version);
         }
 
         try
@@ -86,7 +85,7 @@ public class ClientUtils
         return instance.adminsID.lastIndexOf(client.getID()) != -1;
     }
 
-    public static void makeAdmin(Client client,RatPlugin instance)
+    public static void makeAdmin(Client client)
     {
         client.setName("Admin " + client.getID());
         client.log.setName("Admin Thread " + client.getID());
