@@ -82,7 +82,7 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     @Override
     public void work(Plugin plugin)
     {
-        //pinger.startPinger(plugin,this);
+        pinger.startPinger(plugin,this);
     }
 
     @Override
