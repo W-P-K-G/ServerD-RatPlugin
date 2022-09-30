@@ -37,6 +37,7 @@ public class ClientUtils
     public static String ratsListJson(RatPlugin instance)
     {
         ClientMap clientmap = new ClientMap();
+        clientmap.clients = new ClientObject[instance.ratsID.size()];
 
         for (int i = 0;i < clientmap.clients.length;i++)
         {
