@@ -10,15 +10,17 @@ import com.serverd.plugin.listener.ConnectListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class About extends Command implements ConnectListener
+public class About extends Command implements ConnectListener, UpdateIDListener
 {
+
     public static class AboutInfo
     {
         public String version = "Unknown";
     }
 
-    public ArrayList<AboutInfo> aboutInfo = new ArrayList<>();
+    public HashMap<Integer, AboutInfo> aboutInfo = new HashMap<>();
 
     public About(Plugin plugin)
     {
@@ -26,14 +28,16 @@ public class About extends Command implements ConnectListener
         help = "/about <version> - setting information about WPKG Rat (visible in /rat-list command)";
 
         plugin.addConnectListener(this);
+        plugin.addUpdateIDListener(this);
     }
 
     @Override
     public void execute(String[] args, Client client, Plugin plugin) throws IOException
     {
+        RatPlugin instance = (RatPlugin) plugin.getInstance();
         if (checkArgs(args,client, 1) == 0)
         {
-            if (ClientUtils.isRat(client, (RatPlugin) plugin.getInstance()))
+            if (ClientUtils.isRat(client, instance))
             {
                 AboutInfo about = aboutInfo.get(client.getID());
                 about.version = args[0];
@@ -45,7 +49,16 @@ public class About extends Command implements ConnectListener
     @Override
     public void onConnect(Plugin plugin, Client client)
     {
-        aboutInfo.add(new AboutInfo());
+        aboutInfo.put(client.getID(),new AboutInfo());
+    }
+
+    @Override
+    public void updateID(Plugin plugin, int oldid, int newid)
+    {
+        AboutInfo info = aboutInfo.get(oldid);
+        aboutInfo.remove(oldid);
+
+        aboutInfo.put(newid,info);
     }
 
     @Override

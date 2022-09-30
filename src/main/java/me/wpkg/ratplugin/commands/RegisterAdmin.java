@@ -87,6 +87,7 @@ public class RegisterAdmin extends Command implements UpdateIDListener, Executio
     public void onDisconnect(Plugin plugin, Client client)
     {
         if (authorized.lastIndexOf(client.getID()) != -1)
-            authorized.remove(client.getID());
+            authorized.remove(authorized.lastIndexOf(client.getID()));
     }
+
 }
