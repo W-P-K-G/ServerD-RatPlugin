@@ -34,7 +34,7 @@ public class ClientUtils
         public ClientObject[] clients;
     }
 
-    public static String ratsListJson(RatPlugin instance)
+    public static String ratsListJson(RatPlugin instance) throws JsonProcessingException
     {
         ClientMap clientmap = new ClientMap();
         clientmap.clients = new ClientObject[instance.ratsID.size()];
@@ -47,15 +47,7 @@ public class ClientUtils
             clientmap.clients[i] = new ClientObject(c.getID(),c.getName(),c.isJoined(),aboutInfo.version);
         }
 
-        try
-        {
-            return objectMapper.writeValueAsString(clientmap);
-        }
-        catch (JsonProcessingException e)
-        {
-            e.printStackTrace();
-            return "";
-        }
+        return objectMapper.writeValueAsString(clientmap);
     }
 
     public static boolean isRat(Client client,RatPlugin instance)

@@ -15,6 +15,7 @@ import me.wpkg.ratplugin.utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RegisterAdmin extends Command implements UpdateIDListener, ExecutionController, ConnectListener
 {
