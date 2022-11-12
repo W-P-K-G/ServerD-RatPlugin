@@ -6,7 +6,6 @@ import com.serverd.plugin.Plugin;
 import com.serverd.plugin.command.Command;
 import com.serverd.plugin.listener.ConnectListener;
 import com.serverd.plugin.listener.ExecutionController;
-import com.serverd.plugin.listener.UpdateIDListener;
 
 import me.wpkg.ratplugin.AdminSessionManager;
 import me.wpkg.ratplugin.RatPlugin;
@@ -17,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class RegisterAdmin extends Command implements UpdateIDListener, ExecutionController, ConnectListener
+public class RegisterAdmin extends Command implements ExecutionController, ConnectListener
 {
     private final ArrayList<Integer> authorized = new ArrayList<>();
 
@@ -25,8 +24,6 @@ public class RegisterAdmin extends Command implements UpdateIDListener, Executio
     {
         command = "/registeradmin";
         help = "/registeradmin <password> - registers admin in UDP";
-
-        plugin.addUpdateIDListener(this);
         plugin.addExecutionController(this);
         plugin.addConnectListener(this);
     }
@@ -60,12 +57,6 @@ public class RegisterAdmin extends Command implements UpdateIDListener, Executio
             }
         }
         else client.send("[BAD_REQUEST]");
-    }
-
-    @Override
-    public void updateID(Plugin plugin, int oldid, int newid)
-    {
-        updateIDInList(authorized,oldid,newid);
     }
 
     @Override

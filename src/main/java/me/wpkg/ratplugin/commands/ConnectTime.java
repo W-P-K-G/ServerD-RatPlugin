@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import static me.wpkg.ratplugin.utils.Utils.objectMapper;
 
@@ -27,7 +28,7 @@ public class ConnectTime extends Command implements ConnectListener
         }
     }
 
-    ArrayList<ConnectInfo> infos = new ArrayList<>();
+    HashMap<Integer,ConnectInfo> infos = new HashMap<>();
 
     public ConnectTime(Plugin plugin)
     {
@@ -41,9 +42,12 @@ public class ConnectTime extends Command implements ConnectListener
     {
         if (checkArgs(args,client,1) == 0)
         {
-            try {
+            try
+            {
                 client.send(objectMapper.writeValueAsString(infos.get(Integer.parseInt(args[0]))));
-            } catch (JsonProcessingException e) {
+            }
+            catch (JsonProcessingException e)
+            {
                 client.send("Error" + e.getMessage());
             }
         }
@@ -53,7 +57,7 @@ public class ConnectTime extends Command implements ConnectListener
     @Override
     public void onConnect(Plugin plugin, Client client)
     {
-        infos.add(new ConnectInfo());
+        infos.put(client.getID(),new ConnectInfo());
     }
 
     @Override

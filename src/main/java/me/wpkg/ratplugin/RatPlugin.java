@@ -5,7 +5,6 @@ import com.serverd.plugin.Debug;
 import com.serverd.plugin.Plugin;
 import com.serverd.plugin.ServerdPlugin;
 import com.serverd.plugin.listener.ConnectListener;
-import com.serverd.plugin.listener.UpdateIDListener;
 
 import me.wpkg.ratplugin.utils.ClientUtils;
 import me.wpkg.ratplugin.commands.*;
@@ -16,7 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListener
+public class RatPlugin implements ServerdPlugin, ConnectListener
 {
     public ArrayList<Integer> adminsID,ratsID;
     public Pinger pinger;
@@ -63,15 +62,14 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
         about = new About(plugin);
 
         plugin.addConnectListener(this);
-        plugin.addUpdateIDListener(this);
         plugin.addExecutionController(new RatController());
 
         plugin.addConnectListener(new AdminSessionManager());
 
         plugin.addCommand(new ListRats());
         plugin.addCommand(new Admin());
+        plugin.addCommand(new NoPing(pinger));
         plugin.addCommand(new ConnectTime(plugin));
-        plugin.addCommand(new Current());
         plugin.addCommand(new RegisterAdmin(plugin));
         plugin.addCommand(new SetPassword());
         plugin.addCommand(about);
@@ -99,16 +97,8 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     @Override
     public void onConnect(Plugin plugin, Client client)
     {
-        if (client.getProtocol() == Client.Protocol.UDP)
-        {
-            ClientUtils.makeAdmin(client);
-            ClientUtils.addToAdminList(client,this);
-        }
-        else
-        {
-            ClientUtils.makeRat(client);
-            ClientUtils.addToRatList(client,this);
-        }
+        ClientUtils.makeRat(client);
+        ClientUtils.addToRatList(client,this);
     }
 
     @Override
@@ -116,12 +106,5 @@ public class RatPlugin implements ServerdPlugin, ConnectListener, UpdateIDListen
     {
         ClientUtils.removeFromAdminList(client,this);
         ClientUtils.removeFromRatList(client,this);
-    }
-
-    @Override
-    public void updateID(Plugin plugin, int oldid, int newid)
-    {
-        updateIDInList(adminsID,oldid,newid);
-        updateIDInList(ratsID,oldid,newid);
     }
 }

@@ -7,7 +7,6 @@ import me.wpkg.ratplugin.RatPlugin;
 import me.wpkg.ratplugin.utils.Utils;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 
 public class SetPassword extends Command

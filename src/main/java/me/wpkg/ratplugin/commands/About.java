@@ -1,6 +1,5 @@
 package me.wpkg.ratplugin.commands;
 
-import com.serverd.plugin.listener.UpdateIDListener;
 import me.wpkg.ratplugin.utils.ClientUtils;
 import me.wpkg.ratplugin.RatPlugin;
 import com.serverd.client.Client;
@@ -9,10 +8,9 @@ import com.serverd.plugin.command.Command;
 import com.serverd.plugin.listener.ConnectListener;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class About extends Command implements ConnectListener, UpdateIDListener
+public class About extends Command implements ConnectListener
 {
 
     public static class AboutInfo
@@ -28,7 +26,6 @@ public class About extends Command implements ConnectListener, UpdateIDListener
         help = "/about <version> - setting information about WPKG Rat (visible in /rat-list command)";
 
         plugin.addConnectListener(this);
-        plugin.addUpdateIDListener(this);
     }
 
     @Override
@@ -50,15 +47,6 @@ public class About extends Command implements ConnectListener, UpdateIDListener
     public void onConnect(Plugin plugin, Client client)
     {
         aboutInfo.put(client.getID(),new AboutInfo());
-    }
-
-    @Override
-    public void updateID(Plugin plugin, int oldid, int newid)
-    {
-        AboutInfo info = aboutInfo.get(oldid);
-        aboutInfo.remove(oldid);
-
-        aboutInfo.put(newid,info);
     }
 
     @Override

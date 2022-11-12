@@ -19,6 +19,8 @@ public class Pinger
 
     boolean isPinging = false,isRunning = false;
 
+    public ArrayList<Integer> excludes = new ArrayList<>();
+
     public Pinger(Plugin plugin,double interval,int timeout)
     {
         this.timeout = timeout;
@@ -65,7 +67,7 @@ public class Pinger
 
             isPinging = true;
 
-            if (instance.ratsID.isEmpty())
+            if (instance.ratsID.isEmpty() || (instance.ratsID.size() == excludes.size()))
                 continue;
 
             plugin.info("Starting pinging...");
@@ -73,7 +75,8 @@ public class Pinger
 
             ArrayList<Client> rats = new ArrayList<>();
             for (int id : instance.ratsID)
-                rats.add(ClientManager.getClient(id));
+                if (!excludes.contains(id))
+                    rats.add(ClientManager.getClient(id));
 
             for (Client client : rats)
             {
